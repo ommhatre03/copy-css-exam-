@@ -1,441 +1,244 @@
-Of course! Adding a "Copy" button for each code block is a great idea for usability.
-
-I have updated the previous HTML file with the following enhancements:
-
-1.  **"Copy" Buttons:** A "Copy" button is now positioned at the top-right corner of every code block.
-2.  **JavaScript Logic:** A small, efficient JavaScript snippet has been added to the end of the file. This script automatically finds all code blocks, adds the copy buttons, and handles the "copy to clipboard" functionality.
-3.  **User Feedback:** When you click "Copy", the button's text will change to "Copied!" for two seconds to confirm the action.
-4.  **CSS Styling:** The buttons are styled to be clean and unobtrusive, appearing more prominently when you hover over the code block.
-
-Here is the complete, updated `.html` file. You can save and use this single file.
-
-***
-
-```html
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS & Web Practical Exam Question Bank</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
-        .question-block {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: #fafafa;
-        }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        h2 {
-            color: #3498db;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-        h3 {
-            color: #2980b9;
-        }
-        /* --- Styles for Code Block and Copy Button --- */
-        .code-container {
-            position: relative;
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
-        pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 20px;
-            padding-top: 45px; /* Add space for the button */
-            border-radius: 5px;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            margin: 0;
-        }
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #444;
-            color: #eee;
-            border: 1px solid #666;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8em;
-            opacity: 0.7;
-            transition: opacity 0.2s, background-color 0.2s;
-        }
-        .code-container:hover .copy-btn {
-            opacity: 1;
-        }
-        .copy-btn:hover {
-            background-color: #555;
-        }
-        .copy-btn.copied {
-            background-color: #28a745; /* Green color for success */
-            color: white;
-            border-color: #28a745;
-        }
-        /* --- End of Code Block Styles --- */
-        code {
-            font-family: 'Courier New', Courier, monospace;
-        }
-        .theory-answer {
-            background-color: #eaf5ff;
-            border-left: 4px solid #3498db;
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 4px;
-        }
-        strong {
-            color: #555;
-        }
-        iframe {
-            width: 100%;
-            height: 150px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical;
-        }
-        .demo-box {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin-top: 10px;
-            border-radius: 5px;
-            background: #fff;
-        }
-        ul, ol {
-            padding-left: 20px;
-        }
-    </style>
+<title>CSS Practical Exam</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+<style>
+body { font-family: Arial; margin:20px; }
+.box { border:1px solid black; padding:10px; margin:10px; }
+textarea { width:100%; height:100px; }
+button { margin-top:5px; }
+.ext{color:blue;}
+.mod{color:green;}
+</style>
+
+<script>
+function copyCode(id){
+let text=document.getElementById(id);
+navigator.clipboard.writeText(text.value);
+alert("Copied!");
+}
+
+function showName(){ out1.innerHTML=name.value; }
+
+function fullCap(){
+out2.innerHTML=(f.value+" "+l.value).toUpperCase();
+}
+
+function currency(){
+out3.innerHTML=new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR'}).format(amt.value);
+}
+
+let c=0;
+function countKey(){ c++; count.innerHTML=c; }
+</script>
+
 </head>
-<body>
-    <div class="container">
-        <h1>CSS & Web Practical Exam Question Bank</h1>
 
-        <!-- ==================== Question 1: Py-Script ==================== -->
-        <div class="question-block">
-            <h2>Question 1</h2>
-            <p><strong>Practical Question:</strong> Print list of elements using for loop using py-script.</p>
-            <p><strong>Theory Question:</strong> How the python script is embedded in html?</p>
+<body ng-app="myApp">
 
-            <h3>Answer</h3>
-            <h4>Working Code:</h4>
-            <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" /&gt;
-    &lt;script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"&gt;&lt;/script&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;h3&gt;List of Fruits:&lt;/h3&gt;
-    &lt;div id="output"&gt;&lt;/div&gt;
-    &lt;py-script&gt;
-        fruits = ["Apple", "Banana", "Cherry", "Date"]
-        output_div = Element("output")
-        
-        list_html = "&lt;ul&gt;"
-        for fruit in fruits:
-            list_html += f"&lt;li&gt;{fruit}&lt;/li&gt;"
-        list_html += "&lt;/ul&gt;"
+<h1>CSS Practical Exam</h1>
 
-        output_div.inner_html = list_html
-    &lt;/py-script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+<!-- Q1 -->
+<div class="box">
+<h2>Q1: Print list using PyScript</h2>
 
-            <h4>Live Demo:</h4>
-            <div class="demo-box">
-                <iframe srcdoc='
-                    <!DOCTYPE html>
-                    <html>
-                      <head>
-                        <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
-                        <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
-                      </head>
-                      <body>
-                        <h3>List of Fruits:</h3>
-                        <div id="output"></div>
-                        <py-script>
-                            fruits = ["Apple", "Banana", "Cherry", "Date"]
-                            output_div = Element("output")
-                            
-                            list_html = "<ul>"
-                            for fruit in fruits:
-                                list_html += f"<li>{fruit}</li>"
-                            list_html += "</ul>"
+<py-script>
+items=["Apple","Banana","Mango"]
+for i in items:
+    print(i)
+</py-script>
 
-                            output_div.inner_html = list_html
-                        </py-script>
-                      </body>
-                    </html>
-                '></iframe>
-            </div>
+<textarea id="c1"><py-script>
+items=["Apple","Banana","Mango"]
+for i in items:
+    print(i)
+</py-script></textarea>
+<button onclick="copyCode('c1')">Copy</button>
 
-            <div class="theory-answer">
-                <h4>Theory Answer:</h4>
-                <p>Python script is embedded in HTML using the <strong>PyScript framework</strong>. This involves a few key steps:</p>
-                <ol>
-                    <li><strong>Include PyScript Libraries:</strong> You must include the PyScript CSS and JavaScript files in the <code>&lt;head&gt;</code> section of your HTML document. This is typically done via a CDN (Content Delivery Network).
-                        <pre><code>&lt;link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" /&gt;
-&lt;script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"&gt;&lt;/script&gt;</code></pre>
-                    </li>
-                    <li><strong>Write Python Code:</strong> You can then write Python code directly within the <code>&lt;body&gt;</code> of your HTML using the <code>&lt;py-script&gt;</code> tag. The browser, with the help of the PyScript library, will execute this Python code.</li>
-                    <li><strong>DOM Interaction:</strong> PyScript provides a way for Python to interact with the HTML Document Object Model (DOM). For example, you can get an element by its ID using <code>Element("my-id")</code> and manipulate its content.</li>
-                </ol>
-            </div>
-        </div>
+<p><b>Theory:</b> PyScript allows Python in browser using &lt;py-script&gt;. It runs Python using WebAssembly.</p>
+</div>
 
-        <!-- ==================== Question 2: JSON ==================== -->
-        <div class="question-block">
-            <h2>Question 2</h2>
-            <p><strong>Practical Question:</strong> Create JSON Object Person with name, age and city with default values. Display them.</p>
-            <p><strong>Theory Question:</strong> How do you convert JSON object into javascript object?</p>
+<!-- Q2 -->
+<div class="box">
+<h2>Q2: JSON Object</h2>
+
+<p id="json"></p>
+<script>
+let p={name:"John",age:25,city:"Pune"};
+json.innerHTML=p.name+" "+p.age+" "+p.city;
+</script>
+
+<textarea id="c2">let p={name:"John",age:25,city:"Pune"};</textarea>
+<button onclick="copyCode('c2')">Copy</button>
+
+<p><b>Theory:</b> JSON is converted to JS object using JSON.parse(). JSON.stringify() does reverse.</p>
+</div>
+
+<!-- Q3 -->
+<div class="box">
+<h2>Q3: Full Name</h2>
+
+<p id="full"></p>
+<script>
+let per={first:"John",last:"Doe"};
+full.innerHTML=per.first+" "+per.last;
+</script>
+
+<textarea id="c3">first + last</textarea>
+<button onclick="copyCode('c3')">Copy</button>
+
+<p><b>Theory:</b> Interpolation uses {{ }} to bind data from model to view in AngularJS.</p>
+</div>
+
+<!-- Q4 -->
+<div class="box">
+<h2>Q4: Input and Display</h2>
+
+<input id="name">
+<button onclick="showName()">Show</button>
+<p id="out1"></p>
+
+<textarea id="c4">ng-model / input binding</textarea>
+<button onclick="copyCode('c4')">Copy</button>
+
+<p><b>Theory:</b> One-way binding sends data one direction. Two-way binding updates both UI and model.</p>
+</div>
+
+<!-- Q5 -->
+<div class="box">
+<h2>Q5: Full Name Capital</h2>
+
+<input id="f">
+<input id="l">
+<button onclick="fullCap()">Show</button>
+<p id="out2"></p>
+
+<textarea id="c5">toUpperCase()</textarea>
+<button onclick="copyCode('c5')">Copy</button>
+
+<p><b>Theory:</b> Multiple filters are applied using | operator. Example: {{name | uppercase | limitTo:5}}</p>
+</div>
+
+<!-- Q6 -->
+<div class="box">
+<h2>Q6: Currency Format</h2>
+
+<input id="amt">
+<button onclick="currency()">Convert</button>
+<p id="out3"></p>
+
+<textarea id="c6">currency filter</textarea>
+<button onclick="copyCode('c6')">Copy</button>
+
+<p><b>Theory:</b> Filters are used with | operator. Example: {{amount | currency}}</p>
+</div>
+
+<!-- Q7 -->
+<div class="box">
+<h2>Q7: Keypress Count</h2>
+
+<input onkeypress="countKey()">
+<p>Count: <span id="count">0</span></p>
+
+<textarea id="c7">keypress event</textarea>
+<button onclick="copyCode('c7')">Copy</button>
+
+<p><b>Theory:</b> AngularJS does not override events. It extends HTML events using directives.</p>
+</div>
+
+<!-- Q8 -->
+<div class="box">
+<h2>Q8: Country List</h2>
+
+<ul>
+<li ng-repeat="c in ['India','USA','UK']">{{c}}</li>
+</ul>
+
+<textarea id="c8">ng-repeat</textarea>
+<button onclick="copyCode('c8')">Copy</button>
+
+<p><b>Theory:</b> Context variables: $index, $first, $last, $even, $odd used in ng-repeat.</p>
+</div>
+
+<!-- Q9 -->
+<div class="box" ng-controller="parent">
+<h2>Q9: Parent Child Controller</h2>
+
+<p>{{msg}}</p>
+<div ng-controller="child">
+<p>{{msg}}</p>
+</div>
+
+<textarea id="c9">nested controllers</textarea>
+<button onclick="copyCode('c9')">Copy</button>
+
+<p><b>Theory:</b> $scope connects controller and view and holds data.</p>
+</div>
+
+<!-- Q10 -->
+<div class="box" ng-controller="ext">
+<h2>Q10: External Controller</h2>
+
+<p>{{msg}}</p>
+
+<textarea id="c10">external controller</textarea>
+<button onclick="copyCode('c10')">Copy</button>
+
+<p><b>Theory:</b> Internal controller is in same file. External controller is in separate JS file.</p>
+</div>
+
+<!-- Q11 -->
+<div class="box">
+<h2>Q11: CSS Types</h2>
+
+<p style="color:red;">Inline</p>
+<p class="ext">Stylesheet</p>
+<p class="mod">Module</p>
+
+<textarea id="c11">inline / css / module</textarea>
+<button onclick="copyCode('c11')">Copy</button>
+
+<p><b>Theory:</b> Stylesheet is global. CSS Modules are local to component.</p>
+</div>
+
+<!-- Q12 -->
+<div class="box">
+<h2>Q12: useState</h2>
+
+<input oninput="state.innerHTML=this.value">
+<p id="state"></p>
+
+<textarea id="c12">useState()</textarea>
+<button onclick="copyCode('c12')">Copy</button>
+
+<p><b>Theory:</b> useState is React hook used to manage state in functional components.</p>
+</div>
+
+<script>
+var app=angular.module("myApp",[]);
+
+app.controller("parent",function($scope){
+$scope.msg="Parent Controller";
+});
+
+app.controller("child",function($scope){
+$scope.msg="Child Controller";
+});
+
+app.controller("ext",function($scope){
+$scope.msg="External Controller";
+});
+</script>
+
+</body>
+</html>
+
             
-            <h3>Answer</h3>
-            <h4>Working Code:</h4>
-            <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;JSON to JavaScript Object&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;h3&gt;Person Details:&lt;/h3&gt;
-    &lt;p&gt;Name: &lt;span id="name"&gt;&lt;/span&gt;&lt;/p&gt;
-    &lt;p&gt;Age: &lt;span id="age"&gt;&lt;/span&gt;&lt;/p&gt;
-    &lt;p&gt;City: &lt;span id="city"&gt;&lt;/span&gt;&lt;/p&gt;
-
-    &lt;script&gt;
-        // 1. A JSON string representing a "Person" object
-        const personJSON = `{
-            "name": "John Doe",
-            "age": 30,
-            "city": "New York"
-        }`;
-
-        // 2. Convert the JSON string into a JavaScript object
-        const personObject = JSON.parse(personJSON);
-
-        // 3. Display the values in the HTML
-        document.getElementById('name').textContent = personObject.name;
-        document.getElementById('age').textContent = personObject.age;
-        document.getElementById('city').textContent = personObject.city;
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-
-            <h4>Live Demo:</h4>
-            <div class="demo-box">
-                <iframe srcdoc='
-                    <!DOCTYPE html>
-                    <html>
-                    <head><title>JSON to JavaScript Object</title></head>
-                    <body>
-                        <h3>Person Details:</h3>
-                        <p>Name: <span id="name"></span></p>
-                        <p>Age: <span id="age"></span></p>
-                        <p>City: <span id="city"></span></p>
-                        <script>
-                            const personJSON = `{ "name": "John Doe", "age": 30, "city": "New York" }`;
-                            const personObject = JSON.parse(personJSON);
-                            document.getElementById("name").textContent = personObject.name;
-                            document.getElementById("age").textContent = personObject.age;
-                            document.getElementById("city").textContent = personObject.city;
-                        </script>
-                    </body>
-                    </html>
-                '></iframe>
-            </div>
-
-            <div class="theory-answer">
-                <h4>Theory Answer:</h4>
-                <p>You convert a JSON string into a JavaScript object using the built-in JavaScript function <strong><code>JSON.parse()</code></strong>.</p>
-                <p><strong>Syntax:</strong> <code>JSON.parse(jsonString)</code></p>
-                <ul>
-                    <li><strong><code>jsonString</code></strong>: A string that contains valid JSON-formatted data.</li>
-                    <li><strong>Return Value:</strong> It returns a new JavaScript object that corresponds to the data in the JSON string.</li>
-                </ul>
-                <p>It's important to note that what is often colloquially called a "JSON object" is technically a "JSON string representing an object". The term "JSON object" is just shorthand. The conversion process takes this string and materializes it into a real, usable JavaScript object in memory.</p>
-                <p>The reverse operation, converting a JavaScript object into a JSON string, is done using <code>JSON.stringify()</code>.</p>
-            </div>
-        </div>
-
-        <!-- ==================== AngularJS Questions Start Here ==================== -->
-        <!-- Note: The following questions (3-10) use AngularJS (v1), which is a legacy framework but matches the terminology of the questions ($scope, etc.). -->
-        
-        <!-- ==================== Question 3: AngularJS - Interpolation ==================== -->
-        <div class="question-block">
-            <h2>Question 3</h2>
-            <p><strong>Practical Question:</strong> Set the first name and last name in separate property and display full name.</p>
-            <p><strong>Theory Question:</strong> What is interpolation in data binding?</p>
-            
-            <h3>Answer</h3>
-            <h4>Working Code:</h4>
-            <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html ng-app="myApp"&gt;
-&lt;head&gt;
-    &lt;title&gt;AngularJS Interpolation&lt;/title&gt;
-    &lt;script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body ng-controller="myCtrl"&gt;
-    &lt;h3&gt;Full Name Display&lt;/h3&gt;
-    &lt;p&gt;Full Name: &lt;strong&gt;{{ firstName + ' ' + lastName }}&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;script&gt;
-        var app = angular.module('myApp', []);
-        app.controller('myCtrl', function($scope) {
-            $scope.firstName = 'Jane';
-            $scope.lastName = 'Doe';
-        });
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-
-            <h4>Live Demo:</h4>
-            <div class="demo-box">
-                <iframe srcdoc='
-                    <!DOCTYPE html>
-                    <html ng-app="myApp">
-                    <head>
-                        <title>AngularJS Interpolation</title>
-                        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-                    </head>
-                    <body ng-controller="myCtrl">
-                        <h3>Full Name Display</h3>
-                        <p>Full Name: <strong>{{ firstName + " " + lastName }}</strong></p>
-                        <script>
-                            var app = angular.module("myApp", []);
-                            app.controller("myCtrl", function($scope) {
-                                $scope.firstName = "Jane";
-                                $scope.lastName = "Doe";
-                            });
-                        </script>
-                    </body>
-                    </html>
-                '></iframe>
-            </div>
-
-            <div class="theory-answer">
-                <h4>Theory Answer:</h4>
-                <p><strong>Interpolation</strong> is a form of one-way data binding that embeds expressions into the HTML template. In AngularJS, it is denoted by double curly braces: <code>{{ expression }}</code>.</p>
-                <ul>
-                    <li><strong>Function:</strong> It binds an expression from the controller's <code>$scope</code> to the view (the HTML). When the value on the <code>$scope</code> changes, AngularJS automatically updates the text in the HTML.</li>
-                    <li><strong>One-Way Binding:</strong> It's called one-way binding because data flows in one direction only: from the model (<code>$scope</code>) to the view. Changes in the view do not affect the model.</li>
-                    <li><strong>Usage:</strong> It's primarily used to display data, such as text, numbers, or the result of simple expressions, directly in the HTML content.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- ==================== Question 4: AngularJS - Two-way Binding ==================== -->
-        <div class="question-block">
-            <h2>Question 4</h2>
-            <p><strong>Practical Question:</strong> Accept name in text field in the form and display it.</p>
-            <p><strong>Theory Question:</strong> Differentiate one way and two-way binding.</p>
-            
-            <h3>Answer</h3>
-            <h4>Working Code:</h4>
-            <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html ng-app="myApp"&gt;
-&lt;head&gt;
-    &lt;title&gt;AngularJS Two-Way Binding&lt;/title&gt;
-    &lt;script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body ng-controller="myCtrl"&gt;
-    <h3>Two-Way Data Binding</h3>
-    <label>Enter your name:</label>
-    &lt;input type="text" ng-model="name" placeholder="Type here..."&gt;
-    <hr>
-    &lt;p&gt;Hello, &lt;strong&gt;{{ name }}&lt;/strong&gt;!&lt;/p&gt;
-
-    &lt;script&gt;
-        var app = angular.module('myApp', []);
-        app.controller('myCtrl', function($scope) {
-            $scope.name = "Guest"; // Initial value
-        });
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-
-            <h4>Live Demo:</h4>
-            <div class="demo-box" style="height: 200px">
-                <iframe srcdoc='
-                    <!DOCTYPE html>
-                    <html ng-app="myApp">
-                    <head>
-                        <title>AngularJS Two-Way Binding</title>
-                        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-                    </head>
-                    <body ng-controller="myCtrl">
-                        <h3>Two-Way Data Binding</h3>
-                        <label>Enter your name:</label>
-                        <input type="text" ng-model="name" placeholder="Type here...">
-                        <hr>
-                        <p>Hello, <strong>{{ name }}</strong>!</p>
-                        <script>
-                            var app = angular.module("myApp", []);
-                            app.controller("myCtrl", function($scope) {
-                                $scope.name = "Guest";
-                            });
-                        </script>
-                    </body>
-                    </html>
-                '></iframe>
-            </div>
-
-            <div class="theory-answer">
-                <h4>Theory Answer:</h4>
-                <p>The key difference between one-way and two-way data binding lies in the direction of data flow between the model (data and logic) and the view (UI).</p>
-                <table border="1" style="width:100%; border-collapse: collapse;">
-                    <tr style="background:#eee;">
-                        <th style="padding: 8px;">Feature</th>
-                        <th style="padding: 8px;">One-Way Binding</th>
-                        <th style="padding: 8px;">Two-Way Binding</th>
-                    </tr>
-                    <tr>
-                        <td style="padding: 8px;"><strong>Data Flow</strong></td>
-                        <td style="padding: 8px;">Unidirectional: Model ➔ View</td>
-                        <td style="padding: 8px;">Bidirectional: Model ⇄ View</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 8px;"><strong>Description</strong></td>
-                        <td style="padding: 8px;">Changes in the model automatically update the view. However, changes in the view (e.g., user input) do not affect the model.</td>
-                        <td style="padding: 8px;">Changes in the model update the view, AND changes in the view (e.g., user input in a form field) automatically update the model.</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 8px;"><strong>AngularJS Example</strong></td>
-                        <td style="padding: 8px;"><code>{{ expression }}</code> (Interpolation) or <code>ng-bind</code></td>
-                        <td style="padding: 8px;"><code>ng-model</code> (used on form elements like input, select, textarea)</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 8px;"><strong>Use Case</strong></td>
-                        <td style="padding: 8px;">Displaying data that the user doesn't directly edit (e.g., titles, labels, read-only information).</td>
-                        <td style="padding: 8px;">Forms and user input fields where the application needs to react instantly to user changes.</td>
-                    </tr>
-                </table>
-            </div
+   
+       
